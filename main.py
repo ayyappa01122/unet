@@ -32,14 +32,14 @@ X = []
 Y = []
 
 for i in range(10,36):
-    path = '/content/DC-UNet/train/tul600'+ str(i+1)+'.tif'
+    path = '/content/unet/train/tul600'+ str(i+1)+'.tif'
     img = cv2.imread(path,1)
     resized_img = cv2.resize(img,(256, 192), interpolation = cv2.INTER_CUBIC)
     
     X.append(resized_img)
     
 for i in range(11,37):
-    path2 = '/content/DC-UNet/test/tul601' + str(i+1)+'.tif'
+    path2 = '/content/unet/test/tul601' + str(i+1)+'.tif'
     msk = cv2.imread(path2,0)
 
     resized_msk = cv2.resize(msk,(256, 192), interpolation = cv2.INTER_CUBIC)
@@ -113,19 +113,19 @@ def saveModel(model):
     model_json = model.to_json()
 
     try:
-        os.makedirs('/content/DC-UNet/models')
+        os.makedirs('/content/unet/models')
     except:
         pass
     
-    fp = open('/content/DC-UNet/models/modelP.json','w')
+    fp = open('/content/unet/models/modelP.json','w')
     fp.write(model_json)
-    model.save('/content/DC-UNet/models/modelW.h5')
+    model.save('/content/unet/models/modelW.h5')
 
 
 def evaluateModel(model, X_test, Y_test, batchSize):
     
     try:
-        os.makedirs('/content/DC-UNet/results')
+        os.makedirs('/content/unet/results')
     except:
         pass 
     
@@ -179,11 +179,11 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     print('Dice Coefficient : '+str(dice))
     
 
-    fp = open('/content/DC-UNet/models/log.txt','a')
+    fp = open('/content/unet/models/log.txt','a')
     fp.write(str(jacard)+'\n')
     fp.close()
 
-    fp = open('/content/DC-UNet/models/best.txt','r')
+    fp = open('/content/unet/models/best.txt','r')
     best = fp.read()
     fp.close()
 
@@ -191,7 +191,7 @@ def evaluateModel(model, X_test, Y_test, batchSize):
         print('***********************************************')
         print('Jacard Index improved from '+str(best)+' to '+str(jacard))
         print('***********************************************')
-        fp = open('/content/DC-UNet/models/best.txt','w')
+        fp = open('/content/unet/models/best.txt','w')
         fp.write(str(jacard))
         fp.close()
 
@@ -217,9 +217,9 @@ model.compile(optimizer='adam', loss=focal_tversky, metrics=[dice_coef, jacard, 
 model.summary()
 saveModel(model)
 
-fp = open('/content/DC-UNet/models/log.txt','w')
+fp = open('/content/unet/models/log.txt','w')
 fp.close()
-fp = open('/content/DC-UNet/models/best.txt','w')
+fp = open('/content/unet/models/best.txt','w')
 fp.write('-1.0')
 fp.close()
     
