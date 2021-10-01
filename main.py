@@ -132,7 +132,7 @@ def evaluateModel(model, X_test, Y_test, batchSize):
     yp = model.predict(x=X_test, batch_size=batchSize, verbose=1)
     yp = np.round(yp,0)
     
-    for i in range(10):
+    for i in range(6):
 
         plt.figure(figsize=(20,10))
         plt.subplot(1,3,1)
@@ -151,7 +151,7 @@ def evaluateModel(model, X_test, Y_test, batchSize):
         jacard = (np.sum(intersection)/np.sum(union))  
         plt.suptitle('Jacard Index'+ str(np.sum(intersection)) +'/'+ str(np.sum(union)) +'='+str(jacard))
 
-        plt.savefig('results/'+str(i)+'.png',format='png')
+        plt.savefig('/content/sample_data'+str(i)+'.png',format='png')
         plt.close()
     
     jacard = 0
