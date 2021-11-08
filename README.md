@@ -39,7 +39,7 @@ main.py
 
 ## Results on three datasets
 
-<div align=center><img src="https://github.com/AngeLouCN/DC-UNet/blob/main/results/table.PNG" width="773" height="607" alt="Result_table"/></div>
+
 
 ### Citation
 If you think this work and code is helpful in your research, please cite:
